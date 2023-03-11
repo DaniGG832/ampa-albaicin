@@ -11,11 +11,21 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
 
-        return view('admin/index',compact('users'));
+        if ($request->input('act')) {
+            # code...
+            $users = User::where('activado', '=', 0)->get();
+            //return $users;
+
+
+        } else {
+
+            $users = User::all();
+        }
+
+        return view('admin/index', compact('users'));
     }
 
     /**
@@ -53,9 +63,15 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->activado = !$user->activado;
+
+        $user->save();
+
+        return redirect()
+            ->back()
+            ->withInput()->with('success', "Usuario ' $user->name ' modificado correctamente");
     }
 
     /**

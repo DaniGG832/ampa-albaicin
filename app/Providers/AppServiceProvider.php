@@ -26,7 +26,14 @@ class AppServiceProvider extends ServiceProvider
             //dd(auth()->user());
             return  auth()->user()->admin
             ? Response::allow()
-                : Response::deny('You must be an administrator.');;
+                : Response::deny('You must be an administrator.');
+        });
+
+        Gate::define('activado', function(User $user) {
+            //dd(auth()->user());
+            return  auth()->user()->activado
+            ? Response::allow()
+                : abort(401);
         });
     }
 }
