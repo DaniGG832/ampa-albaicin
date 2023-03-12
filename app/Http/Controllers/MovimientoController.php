@@ -14,9 +14,11 @@ class MovimientoController extends Controller
     public function index()
     {
         $movimientos = Movimiento::all();
+        $total = $movimientos->sum('cantidad');
 
-        return $movimientos[0]->user;
-        return view('movimientos.index');
+        //return $total;
+        //return $movimientos[0]->user;
+        return view('movimientos.index',compact('movimientos','total'));
     }
 
     /**

@@ -20,6 +20,8 @@
                         </div>
                     @endif
 
+                   
+                {{auth()->user()->is_admin()}}
                     {{-- {{auth()->user()->activado}} --}}
 
                 </div>
