@@ -17,4 +17,8 @@ class Movimiento extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function positivo(){
+        return $this->cantidad > 0;
+    }
 }

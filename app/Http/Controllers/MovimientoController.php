@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMovimientoRequest;
 use App\Http\Requests\UpdateMovimientoRequest;
 use App\Models\Movimiento;
+use Illuminate\Pagination\Paginator;
 
 class MovimientoController extends Controller
 {
@@ -13,8 +14,10 @@ class MovimientoController extends Controller
      */
     public function index()
     {
-        $movimientos = Movimiento::all();
-        $total = $movimientos->sum('cantidad');
+        Paginator::defaultView('paginate');
+
+        $movimientos = Movimiento::with('user')->orderBy('id','desc')->paginate(15);
+        $total = Movimiento::sum('cantidad');
 
         //return $total;
         //return $movimientos[0]->user;
