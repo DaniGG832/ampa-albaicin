@@ -36,6 +36,9 @@ Route::middleware('auth' ,'can:activado')->group(function () {
     Route::middleware('can:admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
         Route::put('/admin/{user}', [AdminController::class, 'update'])->name('admin.update');
+        //Route::post('/movimientos', [MovimientoController::class, 'store'])->name('movimientos.store');
+
+      Route::resource('/movimientos', MovimientoController::class)->only(['store']);
     });
 });
 

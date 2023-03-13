@@ -11,7 +11,7 @@ class StoreMovimientoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,21 @@ class StoreMovimientoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'concepto' => 'required||string|min:3|max:255',
+            'cantidad' => 'required|decimal:0,2',
         ];
     }
+
+    public function messages()
+{
+    return [
+        'concepto.required' => 'El :attribute es obligatorio.',
+        'concepto.max' =>'El :attribute no puede ser mayor a 255 caracteres.',
+        'concepto.min' =>'El :attribute no puede ser menor de 3 caracteres.',
+        'cantidad.required' => 'La :attribute es obligatoria.',
+        'cantidad.decimal' => 'La :attribute debe contener dos decimales.',
+        
+        
+    ];
+}
 }

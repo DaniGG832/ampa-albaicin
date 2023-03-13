@@ -37,7 +37,22 @@ class MovimientoController extends Controller
      */
     public function store(StoreMovimientoRequest $request)
     {
-        //
+
+        if (Movimiento::sum('cantidad')+$request->validated('cantidad')<0) {
+            # code...
+        return back()->with('error', "El total no puede ser negativo");
+
+        }
+        $movimiento = new Movimiento();
+
+        $movimiento->concepto = $request->validated('concepto');
+        $movimiento->cantidad = $request->validated('cantidad');
+        $movimiento->subtotal = Movimiento::sum('cantidad')+$request->validated('cantidad');
+        $movimiento->user_id = auth()->id();
+
+        $movimiento->save();
+
+        return back()->with('success', "Movimiento registrado correctamente");
     }
 
     /**
