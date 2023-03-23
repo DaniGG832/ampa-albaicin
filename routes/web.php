@@ -35,7 +35,11 @@ Route::middleware('auth' ,'can:activado')->group(function () {
     /* Admin */
     Route::middleware('can:admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-        Route::put('/admin/{user}', [AdminController::class, 'update'])->name('admin.update');
+        Route::get('/admin/user', [AdminController::class, 'indexUser'])->name('admin.user');
+        Route::get('/admin/admin', [AdminController::class, 'indexAdmin'])->name('admin.admin');
+
+        Route::put('/admin/{user}/user', [AdminController::class, 'updateUser'])->name('admin.update.user');
+        Route::put('/admin/{user}/admin', [AdminController::class, 'updateAdmin'])->name('admin.update.admin');
         //Route::post('/movimientos', [MovimientoController::class, 'store'])->name('movimientos.store');
 
       Route::resource('/movimientos', MovimientoController::class)->only(['store']);

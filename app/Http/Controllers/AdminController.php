@@ -14,20 +14,42 @@ class AdminController extends Controller
     public function index(Request $request)
     {
 
-        if ($request->input('act')) {
-            # code...
-            $users = User::where('activado', '=', 0)->get();
-            //return $users;
 
 
-        } else {
-
-            $users = User::all();
-        }
-
-        return view('admin/index', compact('users'));
+        return view('admin/index');
     }
 
+    /**
+     * Display a listing of the resource.
+     */
+    public function indexAdmin(Request $request)
+    {
+
+        $users = User::where('activado', '=', 1)->orderByDesc('admin')->get();
+        //return $users;
+
+        return view('admin/admin', compact('users'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function indexUser(Request $request)
+    {
+
+
+
+        if ($request->input('act')) {
+            # code...
+            $users = User::where('activado', '=', 0)->where('admin', '=', 0)->get();
+            //return $users;
+        } else {
+
+            $users = User::where('admin', '=', 0)->get();
+        }
+
+        return view('admin/user', compact('users'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -63,8 +85,14 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function updateUser(Request $request, User $user)
     {
+        if (!$user->admin) {
+            return redirect()
+                ->back()
+                ->withInput()->with('success', "Usuario ' $user->name ' es admin y no se puede modificar");
+        }
+
         $user->activado = !$user->activado;
 
         $user->save();
@@ -74,6 +102,27 @@ class AdminController extends Controller
             ->withInput()->with('success', "Usuario ' $user->name ' modificado correctamente");
     }
 
+    public function updateAdmin(Request $request, User $user)
+    {
+
+        $adminCount = User::where('admin', 1)->count();
+
+        
+       if ($user->admin == 1 && $adminCount <= 1) {
+            
+            return redirect()
+                ->back()
+                ->withInput()->with('success', "Debe haber al menos un usuario administrator");
+        } 
+        
+        $user->admin = !$user->admin;
+
+        $user->save();
+
+        return redirect()
+            ->back()
+            ->withInput()->with('success', "Usuario ' $user->name ' modificado correctamente");
+    }
     /**
      * Remove the specified resource from storage.
      */
