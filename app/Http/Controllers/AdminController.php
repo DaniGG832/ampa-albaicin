@@ -87,7 +87,7 @@ class AdminController extends Controller
      */
     public function updateUser(Request $request, User $user)
     {
-        if (!$user->admin) {
+        if ($user->admin) {
             return redirect()
                 ->back()
                 ->withInput()->with('success', "Usuario ' $user->name ' es admin y no se puede modificar");
