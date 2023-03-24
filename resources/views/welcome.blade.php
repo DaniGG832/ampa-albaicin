@@ -862,7 +862,7 @@
             </div>
 
             <div class="mt-16 ">
-                <img class="rounded-3xl shadow-2xl" src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/310829392_503497731792275_3038944004313535126_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=V1cnA2rWKHsAX9INekN&_nc_ht=scontent-mad2-1.xx&oh=00_AfC7Maun56SKCODVnItJO8sOBo-KOzEU87zooZHl1kFSKA&oe=641100DC"
+                <img class="rounded-3xl shadow-2xl" src="{{asset('img/albaicin.jpg')}}"
                     alt="imagen Colegio Albaicin">
 
             </div>
