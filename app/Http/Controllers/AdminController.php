@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -25,7 +26,7 @@ class AdminController extends Controller
     public function indexAdmin(Request $request)
     {
 
-        $users = User::where('activado', '=', 1)->orderByDesc('admin')->get();
+        $users = User::where('activado', '=', 1)->whereNot('id', Auth()->id())->orderByDesc('admin')->get();
         //return $users;
 
         return view('admin/admin', compact('users'));
@@ -104,6 +105,12 @@ class AdminController extends Controller
 
     public function updateAdmin(Request $request, User $user)
     {
+        if(auth()->user() == $user){
+
+            return redirect()
+                ->back()
+                ->withInput()->with('success', "No se puede modificar su usuario");
+        }
 
         $adminCount = User::where('admin', 1)->count();
 
