@@ -26,8 +26,10 @@ class AdminController extends Controller
     public function indexAdmin(Request $request)
     {
 
-        $users = User::where('activado', '=', 1)->whereNot('id', Auth()->id())->orderByDesc('admin')->get();
-        //return $users;
+        //$users = User::where('activado', '=', 1)->whereNot('id', Auth()->id())->orderByDesc('admin')->get();
+        $users = User::whereActivado( 1 )->orderByDesc('admin')->get()->except(Auth()->id());
+
+        //$users = $users->except(1);
 
         return view('admin/admin', compact('users'));
     }
