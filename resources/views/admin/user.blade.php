@@ -37,7 +37,7 @@
                                   
                               @else
                                   <div class="my-5"><a href="{{route('admin.user',['act'=>1])}}" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500"
-                                          href="">Mostrar inactivos</a></div>
+                                          href="">Mostrar Desactivados</a></div>
                               @endif
                                     
                               <div class="overflow-hidden flex justify-center">
@@ -86,7 +86,7 @@
                                                                 @method('PUT')
                                                                 @csrf
                                                                   <div><button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                                                                          href="">Desactivar</button></div>
+                                                                          href="">Activado</button></div>
                                                                   </form>
                                                               @else
                                                                   <form action="{{route('admin.update.user',$user)}}" method="post">
@@ -94,7 +94,7 @@
                                                                     @csrf
                                                                   <div><button
                                                                           class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                                                                          href="">Activar</button></div>
+                                                                          href="">Desactivado</button></div>
                                                                   </form>
                                                               @endif
 
